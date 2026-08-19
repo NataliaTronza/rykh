@@ -66,7 +66,7 @@ p{margin:0}
 button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer;font-weight:700}
 input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);font-weight:600}
 
-.app{max-width:470px;margin:0 auto;padding:0 18px 112px;min-height:100vh}
+.app{max-width:470px;margin:0 auto;padding:0 18px calc(116px + env(safe-area-inset-bottom,0px));min-height:100vh}
 .screen{display:none;animation:fade .28s ease}
 .screen.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -183,7 +183,8 @@ input,select,textarea{font-family:inherit;font-size:16px;color:var(--ink);font-w
 .badge .ic{font-size:23px}
 .badge .t{font-size:11px;font-weight:800;margin-top:4px;line-height:1.25}
 
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;padding:0 18px 16px;pointer-events:none}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;
+  padding:0 18px calc(14px + env(safe-area-inset-bottom,0px));pointer-events:none}
 .tabbar .inner{pointer-events:auto;display:flex;width:100%;max-width:434px;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border-radius:26px;padding:8px;box-shadow:0 16px 32px -18px rgba(70,110,140,.85)}
 .tabbar button{flex:1;padding:9px 4px;border-radius:20px;font-size:10.5px;font-weight:800;color:var(--ink-40);display:flex;flex-direction:column;align-items:center;gap:3px}
@@ -1734,7 +1735,7 @@ function initSW(){
 
 /* ============ СТАРТ ============ */
 function init(){
-  document.documentElement.dataset.theme=S.theme||'sky';
+  try{document.documentElement.dataset.theme=S.theme||'sky'}catch(e){}
   probePhotos();
   initSW();
   $('pl-bird').innerHTML=birdSVG();
@@ -1742,7 +1743,8 @@ function init(){
   renderGoals();
   preloadMusic();
   $('pl-sound').style.opacity=S.sound?1:.4;
-  if(S.programs.length||S.profile){$('tabbar').style.display='flex';tab('today');checkAch()}
+  const hasData=!!(S.profile||S.programs.length||Object.keys(S.log||{}).length||(S.custom&&S.custom.workouts.length)||S.weights.length);
+  if(hasData){$('tabbar').style.display='flex';tab('today');checkAch()}
   else{show('s-start');$('tabbar').style.display='none'}
 }
 init();
