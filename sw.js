@@ -1,5 +1,5 @@
 /* rukh service worker */
-const V = 'rukh-v1';
+const V = 'rukh-v3';
 const CORE = [
   './', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png',
