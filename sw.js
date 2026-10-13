@@ -1,7 +1,7 @@
 /* rukh service worker */
-const V = 'rukh-v11';
+const V = 'rukh-v12';
 const CORE = [
-  './', './index.html', './manifest.webmanifest',
+  './', './index.html', './manifest.webmanifest?v=12',
   './icon-192.png', './icon-512.png',
   './icon-maskable-512.png', './apple-touch-icon.png'
 ];
@@ -36,6 +36,12 @@ self.addEventListener('fetch', e => {
         .then(res => { const c = res.clone(); caches.open(V).then(k => k.put('./index.html', c)); return res; })
         .catch(() => caches.match('./index.html').then(m => m || caches.match('./')))
     );
+    return;
+  }
+
+  // маніфест — завжди свіжий, щоб телефон бачив актуальні дані застосунку
+  if (url.pathname.endsWith('.webmanifest')) {
+    e.respondWith(fetch(req).catch(() => caches.match(req, { ignoreSearch: true })));
     return;
   }
 

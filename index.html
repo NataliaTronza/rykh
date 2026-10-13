@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest?v=12">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
@@ -2519,7 +2519,7 @@ $('pl-sound').onclick=()=>{
   else{(mAudio&&mAudio.src)?musicPause(false):musicStart();toast('Музику увімкнено')}
 };
 
-const APPV='1.3 · 19.08';
+const APPV='2.1 · 13.10';
 /* ============ ВСТАНОВЛЕННЯ ============ */
 let installEvt=null,swReg=null,swFresh=false;
 const standalone=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
@@ -2552,7 +2552,7 @@ function renderInstall(){
     c.innerHTML=`<h2>Встановити на телефон</h2>
       <p class="tiny" style="margin-top:6px">${isIOS()
         ? 'У Safari: кнопка «Поділитися» внизу → «На початковий екран».'
-        : 'У меню браузера (три крапки) → «Встановити застосунок» або «Додати на головний екран».'}</p>
+        : 'У меню Chrome (⋮) → «Додати на головний екран» → «Встановити». Не обирай «Створити ярлик» — він відкривається як звичайна вкладка.'}</p>
       <p class="tiny" style="margin-top:8px">Після встановлення додаток відкривається на весь екран і працює без інтернету.</p>`;
   }
   if($('sw-update'))$('sw-update').onclick=()=>{
